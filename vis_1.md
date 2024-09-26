@@ -39,9 +39,10 @@ weather_df =
 
     ## file min/max dates: 1999-09-01 / 2024-09-30
 
-Making our 1sr plot :-)
+Making our 1st plot :-)
 
 ``` r
+#1
 ggplot(weather_df, aes(x=tmin, y=tmax))+
   geom_point()
 ```
@@ -52,6 +53,7 @@ ggplot(weather_df, aes(x=tmin, y=tmax))+
 ![](vis_1_files/figure-gfm/unnamed-chunk-2-1.png)<!-- -->
 
 ``` r
+#2
 weather_df |>
   ggplot(aes(x=tmin, y=tmax))+
   geom_point()
@@ -63,6 +65,7 @@ weather_df |>
 ![](vis_1_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
 ``` r
+#3
 ggp_weather_scatterplot = 
   weather_df |>
   ggplot(aes(x=tmin, y=tmax))+
@@ -103,6 +106,7 @@ weather_df |>
     ## 17 Waterhole_WA USS0023B17S 2022-12-31    76    NA    NA
 
 ``` r
+#4
 weather_df |>
   ggplot(aes(x=tmin, y=tmax, color = name)) +
   geom_point()
@@ -114,6 +118,7 @@ weather_df |>
 ![](vis_1_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
+#5
 weather_df |>
   ggplot(aes(x=tmin, y=tmax, color = name)) +
   geom_point(alpha = .3, size = .8)
@@ -125,6 +130,7 @@ weather_df |>
 ![](vis_1_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ``` r
+#6
 weather_df |>
   ggplot(aes(x=tmin, y=tmax, color = name)) +
   geom_point(alpha = .3, size = .8) +
@@ -144,6 +150,7 @@ weather_df |>
 Where you define aesthetics can matter
 
 ``` r
+#7
 weather_df |>
   ggplot(aes(x=tmin, y=tmax)) +
   geom_point(aes(color=name),alpha = .3, size = .8) +
@@ -163,6 +170,7 @@ weather_df |>
 use faceting real quick
 
 ``` r
+#10
 weather_df |>
   ggplot(aes(x=tmin, y=tmax, color = name)) +
   geom_point(alpha = .3)+
@@ -181,6 +189,7 @@ weather_df |>
 ![](vis_1_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 ``` r
+#11
 weather_df |>
   ggplot(aes(x=tmin, y=tmax, color = name)) +
   geom_point(alpha = .3)+
@@ -201,6 +210,7 @@ weather_df |>
 Let’s make a somewhat more interesting scatterplot
 
 ``` r
+#12
 weather_df |>
   ggplot(aes(x=date, y=tmax, color = name)) +
   geom_point()
@@ -212,6 +222,7 @@ weather_df |>
 ![](vis_1_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ``` r
+#13
 weather_df |>
   ggplot(aes(x=date, y=tmax, color = name)) +
   geom_point(alpha=.3)+
@@ -229,6 +240,7 @@ weather_df |>
 ![](vis_1_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
+#14
 weather_df |>
   ggplot(aes(x=date, y=tmax, color = name, size = prcp)) +
   geom_point(alpha=.3)+
@@ -274,6 +286,7 @@ vs. max temperature, and overlays a linear regression line (using
 options in geom_smooth()).
 
 ``` r
+#15
 weather_df |> 
   filter(name == "CentralPark_NY") |>  #720 rows only central park
   mutate(
@@ -291,6 +304,7 @@ weather_df |>
 \##Small things
 
 ``` r
+#16
 weather_df |>
   ggplot(aes(x=tmin, y=tmax)) +
   geom_point(aes(color=name),alpha = .3, size = .8) +
@@ -308,6 +322,7 @@ weather_df |>
 ![](vis_1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
+#17
 weather_df |>
   ggplot(aes(x=tmin, y=tmax)) +
   geom_hex()
@@ -349,6 +364,7 @@ weather_df |>
 \##Univariable plots
 
 ``` r
+#20
 weather_df |>
   ggplot(aes(x=tmin)) +
   geom_histogram()
@@ -360,3 +376,105 @@ weather_df |>
     ## (`stat_bin()`).
 
 ![](vis_1_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->
+
+``` r
+#21
+weather_df |>
+  ggplot(aes(x=tmin, fill=name)) +
+  geom_histogram(position = "dodge")
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+
+How would i fix this? maybe facet
+
+``` r
+#22
+weather_df |>
+  ggplot(aes(x=tmin, fill=name)) +
+  geom_histogram()+
+  facet_grid(.~name)
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
+
+maybe a density plot?
+
+``` r
+#23
+weather_df |>
+  ggplot(aes(x=tmin, fill=name)) +
+  geom_density(alpha=.3)
+```
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_density()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
+
+\##boxplot
+
+``` r
+#24
+weather_df |>
+  ggplot(aes(x=name, y=tmin)) +
+  geom_boxplot()
+```
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+
+``` r
+#25
+weather_df |>
+  ggplot(aes(x=name, y=tmin, fill=name)) +
+  geom_boxplot()
+```
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
+
+violin plots (for a huge amount of data, violin plot can give you a
+insight that if there is something strange going on)
+
+``` r
+#26
+weather_df |> 
+  ggplot(aes(x=name, y=tmin, fill=name))+
+  geom_violin()
+```
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_ydensity()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+
+ridge plot
+
+``` r
+#27
+weather_df |> 
+  ggplot(aes(x=tmin, y=name))+
+  geom_density_ridges()
+```
+
+    ## Picking joint bandwidth of 1.41
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_density_ridges()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
