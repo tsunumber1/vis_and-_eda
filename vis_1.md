@@ -281,9 +281,82 @@ weather_df |>
     tmin_fahr = tmin * (9 / 5) + 32) |> 
   ggplot(aes(x = tmin_fahr, y = tmax_fahr)) +
   geom_point(alpha = .5) + 
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE) #linear model
 ```
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
 ![](vis_1_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+
+\##Small things
+
+``` r
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax)) +
+  geom_point(aes(color=name),alpha = .3, size = .8) +
+  geom_smooth(se=FALSE)
+```
+
+    ## `geom_smooth()` using method = 'gam' and formula = 'y ~ s(x, bs = "cs")'
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_smooth()`).
+
+    ## Warning: Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-16-1.png)<!-- -->
+
+``` r
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax)) +
+  geom_hex()
+```
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_binhex()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-17-1.png)<!-- -->
+
+Since blue is not a variable in the data set, the point color doesn’t
+show blue. When a thing is a variable, put it enclosed by ggplot(), for
+here R thinks that blue is a variable.
+
+``` r
+#18
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax, color="blue")) +
+  geom_point()
+```
+
+    ## Warning: Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+
+``` r
+#19
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax)) +
+  geom_point(color = "pink")
+```
+
+    ## Warning: Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+
+\##Univariable plots
+
+``` r
+weather_df |>
+  ggplot(aes(x=tmin)) +
+  geom_histogram()
+```
+
+    ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+
+    ## Warning: Removed 17 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-20-1.png)<!-- -->

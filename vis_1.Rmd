@@ -129,7 +129,42 @@ weather_df |>
     tmin_fahr = tmin * (9 / 5) + 32) |> 
   ggplot(aes(x = tmin_fahr, y = tmax_fahr)) +
   geom_point(alpha = .5) + 
-  geom_smooth(method = "lm", se = FALSE)
+  geom_smooth(method = "lm", se = FALSE) #linear model
 ```
 
+##Small things
+```{r}
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax)) +
+  geom_point(aes(color=name),alpha = .3, size = .8) +
+  geom_smooth(se=FALSE)
+```
+
+```{r}
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax)) +
+  geom_hex()
+```
+
+Since blue is not a variable in the data set, the point color doesn't show blue.
+When a thing is a variable, put it enclosed by ggplot(), for here R thinks that blue is a variable.
+```{r}
+#18
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax, color="blue")) +
+  geom_point()
+```
+```{r} 
+#19
+weather_df |>
+  ggplot(aes(x=tmin, y=tmax)) +
+  geom_point(color = "pink")
+```
+
+##Univariable plots
+```{r}
+weather_df |>
+  ggplot(aes(x=tmin)) +
+  geom_histogram()
+```
 
