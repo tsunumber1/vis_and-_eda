@@ -267,3 +267,23 @@ weather_df |>
     ## (`geom_point()`).
 
 ![](vis_1_files/figure-gfm/unnamed-chunk-14-1.png)<!-- -->
+
+Write a code chain that starts with weather_df; focuses only on Central
+Park, converts temperatures to Fahrenheit, makes a scatterplot of min
+vs. max temperature, and overlays a linear regression line (using
+options in geom_smooth()).
+
+``` r
+weather_df |> 
+  filter(name == "CentralPark_NY") |>  #720 rows only central park
+  mutate(
+    tmax_fahr = tmax * (9 / 5) + 32,
+    tmin_fahr = tmin * (9 / 5) + 32) |> 
+  ggplot(aes(x = tmin_fahr, y = tmax_fahr)) +
+  geom_point(alpha = .5) + 
+  geom_smooth(method = "lm", se = FALSE)
+```
+
+    ## `geom_smooth()` using formula = 'y ~ x'
+
+![](vis_1_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
