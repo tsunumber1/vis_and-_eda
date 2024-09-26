@@ -222,7 +222,7 @@ weather_df |>
   geom_boxplot()
 ```
 
-violin plots (for a huge amount of data, violin plot can give you a insight that if there is something strange going on)
+##violin plots (for a huge amount of data, violin plot can give you a insight that if there is something strange going on)
 ```{r}
 #26
 weather_df |> 
@@ -230,7 +230,7 @@ weather_df |>
   geom_violin()
 ```
 
-ridge plot 
+##ridge plot 
 ```{r}
 #27
 weather_df |> 
@@ -238,4 +238,40 @@ weather_df |>
   geom_density_ridges()
 ```
 
+Make plots that compare precipitation across locations. Try a histogram, a density plot, a boxplot, a violin plot, and a ridgeplot; use aesthetic mappings to make your figure readable
+
+LA univariate plots
+```{r}
+weather_df |> 
+  ggplot(aes(x = prcp, fill=name)) + 
+  geom_density(alpha = .5) 
+
+weather_df |> 
+  ggplot(aes(x = name, y = prcp)) + 
+  geom_boxplot()
+
+weather_df|>
+  filter(prcp>10) |>
+  ggplot(aes(x = prcp, fill=name)) + 
+  geom_density(alpha = .3) 
+```
+
+
+## Saving and embedding plots
+```{r}
+ggp_weather=
+  weather_df |>
+  ggplot(aes(x=date, y=tmax,color=name))+
+  geom_point()
+
+ggsave("plots/ggp_weather.pdf", ggp_weather, width=8, height=6)
+#save the most recent
+```
+
+embedding plots
+```{r fig.width = 6, fig.asp = .6}
+weather_df |>
+  ggplot(aes(x=date, y=tmax, color=name)) +
+  geom_point()
+```
 

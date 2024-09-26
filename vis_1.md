@@ -448,7 +448,7 @@ weather_df |>
 
 ![](vis_1_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
-violin plots (for a huge amount of data, violin plot can give you a
+\##violin plots (for a huge amount of data, violin plot can give you a
 insight that if there is something strange going on)
 
 ``` r
@@ -463,7 +463,7 @@ weather_df |>
 
 ![](vis_1_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
-ridge plot
+\##ridge plot
 
 ``` r
 #27
@@ -478,3 +478,71 @@ weather_df |>
     ## (`stat_density_ridges()`).
 
 ![](vis_1_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+
+Make plots that compare precipitation across locations. Try a histogram,
+a density plot, a boxplot, a violin plot, and a ridgeplot; use aesthetic
+mappings to make your figure readable
+
+LA univariate plots
+
+``` r
+weather_df |> 
+  ggplot(aes(x = prcp, fill=name)) + 
+  geom_density(alpha = .5) 
+```
+
+    ## Warning: Removed 15 rows containing non-finite outside the scale range
+    ## (`stat_density()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+
+``` r
+weather_df |> 
+  ggplot(aes(x = name, y = prcp)) + 
+  geom_boxplot()
+```
+
+    ## Warning: Removed 15 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-28-2.png)<!-- -->
+
+``` r
+weather_df|>
+  filter(prcp>10) |>
+  ggplot(aes(x = prcp, fill=name)) + 
+  geom_density(alpha = .3) 
+```
+
+![](vis_1_files/figure-gfm/unnamed-chunk-28-3.png)<!-- -->
+
+## Saving and embedding plots
+
+``` r
+ggp_weather=
+  weather_df |>
+  ggplot(aes(x=date, y=tmax,color=name))+
+  geom_point()
+
+ggsave("plots/ggp_weather.pdf", ggp_weather, width=8, height=6)
+```
+
+    ## Warning: Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+``` r
+#save the most recent
+```
+
+embedding plots
+
+``` r
+weather_df |>
+  ggplot(aes(x=date, y=tmax, color=name)) +
+  geom_point()
+```
+
+    ## Warning: Removed 17 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
+
+![](vis_1_files/figure-gfm/unnamed-chunk-30-1.png)<!-- -->
